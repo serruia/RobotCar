@@ -1,0 +1,100 @@
+/**
+
+	RobotCar Library
+	Author: Weider Santos
+
+**/
+
+#include "RobotCar.h"
+#include "Arduino.h"
+
+RobotCar::RobotCar(){
+
+		pwmPinMotor1=5;
+		pwmPinMotor2=6;
+		directionPinMotor1=4;
+		directionPinMotor2=7;
+		
+		pinMode(pwmPinMotor1, OUTPUT);
+		pinMode(pwmPinMotor2, OUTPUT);
+		pinMode(directionPinMotor1, OUTPUT);
+		pinMode(directionPinMotor1, OUTPUT);
+			
+}
+
+void RobotCar::MoveMotor1(int speed, int direction){
+	analogWrite(pwmPinMotor1, speed);
+	digitalWrite(directionPinMotor1, direction);
+}
+
+void RobotCar::MoveMotor2(int speed, int direction){
+	analogWrite(pwmPinMotor2, speed);
+	digitalWrite(directionPinMotor2, direction);
+}
+
+void RobotCar::StopMotor1(){
+	analogWrite(pwmPinMotor1, 0);
+}
+
+void RobotCar::StopMotor2(){
+	analogWrite(pwmPinMotor2, 0);
+}
+
+int RobotCar::SerialReadTime(){
+	delay(50);
+	while (Serial.available()>0){
+		ch = Serial.read();
+		buf_time[i] = ch;
+		i++;
+	}
+	buf_time[i] = '\0';
+	i = 0;
+	time = atoi(buf_time);
+	
+	return time;
+}
+
+float RobotCar::SerialReadDistance(){
+	delay(50);
+	while (Serial.available()>0){
+		ch = Serial.read();
+		buf_dist[i] = ch;
+		i++;
+	}
+	buf_dist[i] = '\0';
+	i = 0;
+	dist = atof(buf_dist);
+	time_dist = ((dist*24.4) / 10);
+
+	return time_dist;
+}
+
+int RobotCar::SerialReadAngRight(){
+	delay(50);
+	while (Serial.available()>0){
+		ch = Serial.read();
+		buf_ang[i] = ch;
+		i++;
+	}
+	buf_ang[i] = '\0';
+	i = 0;
+	ang = atoi(buf_ang);
+
+	return ang;
+}
+
+int RobotCar::SerialReadAngLeft(){
+	delay(50);
+	while (Serial.available()>0){
+		ch = Serial.read();
+		buf_ang[i] = ch;
+		i++;
+	}
+	buf_ang[i] = '\0';
+	i = 0;
+	ang = atoi(buf_ang);
+	
+	return ang;
+	}
+
+
