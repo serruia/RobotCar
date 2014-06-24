@@ -1,0 +1,35 @@
+/**
+
+	RobotCar Library
+	Author: Weider Santos
+	
+**/
+
+#ifndef	RobotCar_h
+#define RobotCar_h
+#include	"Arduino.h"
+
+class RobotCar{
+	public:
+		RobotCar();
+		void MoveMotor1(int speed, int direction);
+		void MoveMotor2(int speed, int direction);
+		void StopMotor1();
+		void StopMotor2();
+		int SerialReadTime();
+		float SerialReadDistance();
+		int SerialReadAngRight();
+		int SerialReadAngLeft();
+
+		
+	private:
+		int pwmPinMotor1;
+		int pwmPinMotor2;
+		int directionPinMotor1;
+		int directionPinMotor2;
+		int i, time, ang;
+		char ch, buf_time[10], buf_dist[10], buf_ang[10];
+		float dist, time_dist;
+};
+
+#endif	
